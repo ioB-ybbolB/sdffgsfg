@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Popup</title>
+  <script>
+    let totalPopups = 0;
+    const MAX_POPUPS = 32;
+
+    function getRandomPosition() {
+      const width = 250;
+      const height = 200;
+      const x = Math.floor(Math.random() * (window.screen.availWidth - width));
+      const y = Math.floor(Math.random() * (window.screen.availHeight - height));
+      return { x, y };
+    }
+
+    function clone() {
+      if (totalPopups >= MAX_POPUPS) return;
+      totalPopups++;
+
+      const pos = getRandomPosition();
+      const popup = window.open(
+        "popup.html",
+        "_blank",
+        `width=250,height=200,left=${pos.x},top=${pos.y}`
+      );
+
+      if (!popup) return; // blocked
+
+      const interval = setInterval(() => {
+        if (popup.closed) {
+          totalPopups--;
+          clearInterval(interval);
+        }
+      }, 200);
+    }
+
+    // Start cloning every 1 second
+    setInterval(clone, 1000);
+  </script>
+</head>
+<body>
+  <h3>Popup!</h3>
+  <p>Close me before I clone!</p>
+</body>
+</html>
