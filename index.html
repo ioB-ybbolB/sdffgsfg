@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Popup Game Launcher</title>
+  <script>
+    function startGame() {
+      // Open the first popup
+      const pos = getRandomPosition();
+      window.open(
+        "popup.html",
+        "_blank",
+        `width=250,height=200,left=${pos.x},top=${pos.y}`
+      );
+    }
+
+    function getRandomPosition() {
+      const width = 250;
+      const height = 200;
+      const x = Math.floor(Math.random() * (window.screen.availWidth - width));
+      const y = Math.floor(Math.random() * (window.screen.availHeight - height));
+      return { x, y };
+    }
+  </script>
+</head>
+<body>
+  <h2>Exponential Popup Game</h2>
+  <button onclick="startGame()">Start</button>
+  <p>Each popup will open clones of itself. Max 32 popups.</p>
+</body>
+</html>
